@@ -32,13 +32,17 @@ struct MyAnimationState
 NeoPixelAnimator animations(AnimCount); // NeoPixel animation management object
 MyAnimationState animationState[AnimCount];
 uint16_t frontPixel = 0;  // the front of the loop
-float lum = .2;     //este es la intensidad inicial
+float lum = .1;     //este es la intensidad inicial
 RgbColor frontColor = HslColor(1, 1, lum);  // cambia el color del barrido
 
 
 
 void FadeOutAnimUpdate(const AnimationParam& param)
 {
+  lum = lum + 0.05;
+  if (lum > 0.5) lum = 0.5;
+  frontColor = HslColor(1, 1, lum);
+
   // this gets called for each animation on every time step
   // progress will start at 0.0 and end at 1.0
   // we use the blend function on the RgbColor to mix
@@ -59,7 +63,7 @@ void LoopAnimUpdate(const AnimationParam& param)
 
   if (param.state == AnimationState_Completed)
   {
-
+    lum = .1;
     // done, time to restart this position tracking animation/timer
     animations.RestartAnimation(param.index);
 
