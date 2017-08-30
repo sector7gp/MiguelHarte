@@ -166,7 +166,7 @@ void loop()
   for (int j = 0; j < 5; j++) {
     for (int i = 0; i < 255; i++) {
       analogWrite(ledStrip, i);
-      delay(i + (255 / i)); //ver si funciona el easing el +1 es para evitar la indeterminacion
+      delay(i + (255 / i) + 1); //ver si funciona el easing el +1 es para evitar la indeterminacion
     }
 
     for (int i = 255; i > 0; i -- ) {
