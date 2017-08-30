@@ -4,6 +4,8 @@
 #include <NeoPixelAnimator.h>
 unsigned long timer = millis();
 
+int ledStrip = A0;
+
 const uint16_t PixelCount = 120; // make sure to set this to the number of pixels in your strip
 const uint16_t PixelPin = 2;  // make sure to set this to the correct pin, ignored for Esp8266
 const uint16_t AnimCount = PixelCount / 5 * 2 + 1; // we only need enough animations for the tail and one extra
@@ -102,7 +104,6 @@ void loop()
     animations.StopAnimation(0); //para la animacion del movimiento de los leds
     delay(random(10000, 20000)); //tiempo de espera despues del movimiento de los leds
     int fx = random(0, 10); //hay que mejorar el random, que elige entre latidos o flashes
-Serial.println(fx);
     if (fx <= 8) {
       //LATIDOS
       for (int j = 0; j < random(3, 10); j++) { //aca se setea la cantidad de latidos
@@ -155,8 +156,11 @@ Serial.println(fx);
 
     animations.StartAnimation(0, NextPixelMoveDuration, LoopAnimUpdate); //reanuda el movimiento de los leds
   }
+  for(int i=0; i<255; i++){
+    analogWrite(ledStrip, i);
+    delay((255/i) +1); 
+  }
 }
-//ej
 
 
 
