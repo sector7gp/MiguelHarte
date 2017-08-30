@@ -98,7 +98,7 @@ void loop()
   animations.UpdateAnimations();
   strip.Show();
 
-  
+
   //Serial.println(frontPixel);
   if ((frontPixel == PixelCount - 1)) {
     animations.StopAnimation(0); //para la animacion del movimiento de los leds
@@ -156,10 +156,21 @@ void loop()
 
     animations.StartAnimation(0, NextPixelMoveDuration, LoopAnimUpdate); //reanuda el movimiento de los leds
   }
-  for(int i=0; i<255; i++){
-    analogWrite(ledStrip, i);
-    delay((255/i) +1); 
+
+  ///////////////////////////
+  //este bloque es para manejar la tira de led RGB
+  for (int j = 0; j < 5; j++) {
+    for (int i = 0; i < 255; i++) {
+      analogWrite(ledStrip, i);
+      delay(i + (255 / i)); //ver si funciona el easing el +1 es para evitar la indeterminacion
+    }
+
+    for (int i = 255; i > 0; i -- ) {
+      analogWrite(ledStrip, i);
+      delay(i + (255 / i) + 1); //ver si funciona el easing el +1 es para evitar la indeterminacion
+    }
   }
+  ////////   FIN RGB /////
 }
 
 
